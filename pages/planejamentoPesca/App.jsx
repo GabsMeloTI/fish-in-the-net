@@ -76,9 +76,6 @@ export default function MapScreen({ navigation }) {
         console.log('Weather Forecast:', weatherForecast);
     }, [weatherForecast]);
 
-    if (!localizacao) {
-        return <Text>É preciso habilitar a localização.</Text>;
-    }
 
     return (
         <ScrollView>
@@ -89,43 +86,47 @@ export default function MapScreen({ navigation }) {
                     <Text style={styles.description}>Veja as melhores áreas de pesca do Brasil.</Text>
                 </View>
                 <View style={styles.mapContainer}>
-                    <MapView
-                        style={styles.map}
-                        initialRegion={{
-                            latitude: localizacao.coords.latitude,
-                            longitude: localizacao.coords.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
-                    />
+                    {localizacao && (
+                        <MapView
+                            style={styles.map}
+                            initialRegion={{
+                                latitude: localizacao.coords.latitude,
+                                longitude: localizacao.coords.longitude,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421,
+                            }}
+                        />
+                    )}
                 </View>
                 
+                <View style={styles.weatherContainer}>
+                    <Text style={styles.title}>Condições climáticas</Text>
+                    {weatherData ? (
+                        <View style={styles.weatherData}>
+                            <Text style={styles.weatherTitle}>Temperatura atual: {weatherData.main.temp}°C</Text>
+                            <Text style={styles.weatherDescription}>Previsão para hoje: {weatherData.weather[0].description}</Text>
+                        </View>
+                    ) : (
+                        <Text style={styles.weatherTitle}>Carregando...</Text>
+                    )}
+
+                    {weatherForecast ? (
+                        <View style={styles.forecastContainer}>
+                            <Text style={styles.forecastTitle}>Previsão para os próximos dias:</Text>
+                            {weatherForecast.list.slice(1, 6).map((item, index) => (
+                                <View key={index} style={styles.forecastItem}>
+                                    <Text style={styles.forecastItemDate}>{getDateFromTimestamp(item.dt, index + 1)}</Text>
+                                    <Text style={styles.forecastItemTemp}>Mín: {item.main.temp_min.toFixed(1)}°C - Máx: {item.main.temp_max.toFixed(1)}°C</Text>
+                                </View>
+                            ))}
+                        </View>
+                    ) : (
+                        <Text style={styles.forecastTitle}>Carregando...</Text>
+                    )}
+
+                </View>
             
-                {weatherData ? (
-                    <View>
-                        <Text style={styles.title}>Temperatura atual: {weatherData.main.temp}°C</Text>
-                        <Text style={styles.title}>Previsão para hoje: {weatherData.weather[0].description}</Text>
-                    </View>
-                ) : (
-                    <Text style={styles.title}>Carregando...</Text>
-                )}
-
-                {weatherForecast ? (
-                    <View style={styles.forecastContainer}>
-                        <Text style={styles.forecastTitle}>Previsão para os próximos dias:</Text>
-                        {weatherForecast.list.slice(1, 6).map((item, index) => (
-                            <View key={index} style={styles.forecastItem}>
-                                <Text style={styles.forecastItemDate}>{getDateFromTimestamp(item.dt, index + 1)}</Text>
-                                <Text style={styles.forecastItemTemp}>Mín: {item.main.temp_min.toFixed(1)}°C / Máx: {item.main.temp_max.toFixed(1)}°C</Text>
-                            </View>
-                        ))}
-                    </View>
-                ) : (
-                    <Text style={styles.title}>Carregando...</Text>
-                )}
-
-                
-            <Footer />
+                <Footer />
             </View>
         </ScrollView>
     );
@@ -134,8 +135,8 @@ export default function MapScreen({ navigation }) {
 const getDateFromTimestamp = (timestamp, daysAhead) => {
     const date = new Date(timestamp * 1000);
     date.setDate(date.getDate() + daysAhead);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    const month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     return `${day}/${month}`;
 }
 
@@ -175,8 +176,32 @@ const styles = StyleSheet.create({
     map: {
         ...StyleSheet.absoluteFillObject,
     },
-    forecastContainer: {
+    weatherContainer: {
         marginTop: 20,
+        alignItems: 'center',
+    },
+    weatherData: {
+        marginVertical: 20,
+        textAlign: 'center',
+        alignItems: 'center',
+    },
+    weatherTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 10,
+    },
+    weatherDescription: {
+        fontSize: 16,
+        color: '#fff',
+        marginTop: -10,
+    },
+    forecastContainer: {
+        borderColor: '#fff',
+        borderWidth: 1,
+        padding: '5%',
+        borderRadius: 10,
+        alignItems: 'center',
     },
     forecastTitle: {
         fontSize: 20,

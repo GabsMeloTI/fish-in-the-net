@@ -3,8 +3,8 @@ import { StatusBar, Image, StyleSheet, Text, View } from 'react-native';
 
 const linha = require('../../assets/img/linha.png');
 const instagram = require('../../assets/img/Instagram.png');
-const facebook = require('../../assets/img/facebook.png');
-const twitter = require('../../assets/img/twitterX.png');
+const facebook = require('../../assets/img/Facebook.png');
+const twitter = require('../../assets/img/TwitterX.png');
 
 export default function Footer() {
     return(

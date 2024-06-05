@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
+import { StatusBar, ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Menu from '../../components/menu/App';
 import Footer from '../../components/footer/App';
 
@@ -27,15 +27,15 @@ export default function Home({ navigation }) {
 
         <View style={styles.conteudoLinks}>
           <Text style={styles.subtitulo}>O que você deseja?</Text>
-          <View style={styles.blocoOpcoes} >
+          <TouchableOpacity onPress={() => navigation.navigate('MapScreen')} style={styles.blocoOpcoes} >
             <View style={styles.blocoImg}>
               <Image source={agenda} style={styles.img} />
             </View>
             <View style={styles.blocoTexto}>
-              <Text style={styles.blocoTitulo} onPress={() => { navigation.navigate('MapScreen'); }}>Planejamento de Pesca</Text>
-              <Text style={styles.blocoDescricao}>Encontre os locais com maior abundância de peixes e as melhores condições climáticas para sua pescaria.</Text>
+                <Text style={styles.blocoTitulo}>Planejamento de Pesca</Text>
+                <Text style={styles.blocoDescricao}>Encontre os locais com maior abundância de peixes e as melhores condições climáticas para sua pescaria.</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <View style={styles.blocoOpcoes}>
             <View style={styles.blocoImg}>
               <Image source={anotacao} style={styles.img} />
@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     marginBottom: '3%',
+    textAlign: 'center',
   },
   blocoDescricao: {
     color: '#fff',

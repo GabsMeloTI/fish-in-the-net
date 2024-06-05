@@ -1,8 +1,8 @@
 import React from 'react';
-import { StatusBar, Image, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Tooltip } from 'react-native-elements';
 
-const logo = require('../../assets/img/logo.png');
+const logo = require('../../assets/img/Logo.png');
 const home = require('../../assets/img/icon-home.png');
 const localizacao = require('../../assets/img/icon-localition.png');
 const agenda = require('../../assets/img/icon-calendar.png');
@@ -20,11 +20,15 @@ export default function Menu({ navigation }) {
             </View>
             <View style={styles.lista}>
                 <Tooltip popover={<Text>Home</Text>} >
-                    <Image source={home} style={styles.imgMenu} onPress={() => { navigation.navigate('Home'); }}/>
+                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                        <Image source={home} style={styles.imgMenu} />
+                    </TouchableOpacity>
                 </Tooltip>
-               
-                    <Image source={localizacao} style={styles.imgMenu} onPress={() => { navigation.navigate('MapScreen'); }}/>
-     
+                <Tooltip popover={<Text>Planejamento</Text>} >
+                    <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                        <Image source={localizacao} style={styles.imgMenu} />
+                    </TouchableOpacity>
+                </Tooltip>
                 <Tooltip popover={<Text>Agenda</Text>}>
                     <Image source={agenda} style={styles.imgMenu} />
                 </Tooltip>
