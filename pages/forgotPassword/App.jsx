@@ -9,16 +9,74 @@ const api = axios.create({
 });
 
 export default function Forgot({navigation}) {
-  const [codigo, setCodigo] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
   const [modalVisible, setModalVisible] = useState(true);
   const [email, setEmail] = useState("");
+  
+  const handleChangePassword = () => {
+    if (senha !== confirmacaoSenha) {
+      alert("As senhas não coincidem. Por favor, verifique.");
+      return;
+    }
+
+    if (!email.trim()) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }
+
+    api.get(`/usuarios.json?orderBy="email"&equalTo="${email}"`)
+      .then(response => {
+        const userData = response.data;
+        const userId = Object.keys(userData)[0]; 
+
+        if (!userData || !userId) {
+          alert("Este e-mail não está registrado.");
+          return;
+        }
+
+        api.patch(`/usuarios/${userId}.json`, { senha: senha })
+          .then(() => {
+            alert("Senha alterada com sucesso!");
+            setModalVisible(false);
+            navigation.navigate('SingIn');
+          })
+          .catch(error => {
+            console.error("Erro ao alterar a senha:", error);
+            alert("Ocorreu um erro ao alterar a senha. Por favor, tente novamente mais tarde.");
+          });
+      })
+      .catch(error => {
+        console.error("Erro ao verificar o e-mail:", error);
+        alert("Ocorreu um erro ao verificar o e-mail. Por favor, tente novamente mais tarde.");
+      });
+  };
 
   const handleEmailConfirmation = () => {
-    setModalVisible(false);
-    alert("Se existir uma conta com o e-mail fornecido, você receberá um código de redefinição de senha.");
+    if (!email.trim()) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }
+  
+    api.get(`/usuarios.json?orderBy="email"&equalTo="${email}"`)
+      .then(response => {
+        const userData = response.data;
+        const userId = Object.keys(userData)[0]; 
+  
+        if (!userData || !userId) {
+          alert("Este e-mail não está registrado.");
+          return;
+        }
+  
+        setModalVisible(false);
+        alert("Email já cadastro, agora realize redefinição de senha.");
+      })
+      .catch(error => {
+        console.error("Erro ao verificar o e-mail:", error);
+        alert("Ocorreu um erro ao verificar o e-mail. Por favor, tente novamente mais tarde.");
+      });
   };
+
 
   return (
     <ScrollView style={styles.container}>
@@ -34,21 +92,11 @@ export default function Forgot({navigation}) {
         <View style={styles.conteudoInput}>
           <View>
             <View>
-              <Text style={styles.desInput}>Código de confirmação:</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Código que foi enviado ao seu e-mail"
-                placeholderTextColor="#fff"
-                value={codigo}
-                onChangeText={setCodigo}
-              />
-            </View>
-            <View>
               <Text style={styles.desInput}>Senha:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Digite sua nova senha"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 value={senha}
                 onChangeText={setSenha}
               />
@@ -58,17 +106,14 @@ export default function Forgot({navigation}) {
               <TextInput
                 style={styles.input}
                 placeholder="Realize a confirmação da sua senha"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 secureTextEntry={true}
                 value={confirmacaoSenha}
                 onChangeText={setConfirmacaoSenha}
               />
             </View>
-            <TouchableOpacity style={styles.botaoOne}>
+            <TouchableOpacity style={styles.botaoOne} onPress={handleChangePassword}>
               <Text style={styles.textoBotao}>Alterar senha</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Text style={styles.esqueciSenha}>Esqueci a senha</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -107,7 +152,7 @@ export default function Forgot({navigation}) {
               <Text style={styles.textoBotao}>Confirme seu e-mail</Text>
             </TouchableOpacity>
             <Text style={styles.modalSubText}>
-              Se existir uma conta com o e-mail {email}, você receberá um e-mail com um código para redefinir sua senha. Se não chegar, verifique sua pasta de spam.
+              Se existir a conta com o e-mail {email}, você poderá redefinir sua senha.
             </Text>
           </View>
         </View>
@@ -174,9 +219,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     backgroundColor: '#000',
-    color: '#fff',
-  },
-  placeholder: {
     color: '#fff',
   },
   botaoOne: {

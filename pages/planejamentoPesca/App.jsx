@@ -121,7 +121,7 @@ export default function MapScreen({ navigation }) {
                             ))}
                         </View>
                     ) : (
-                        <Text style={styles.forecastTitle}>Carregando...</Text>
+                        <Text style={styles.forecastTitle}></Text>
                     )}
 
                 </View>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
     },
     weatherContainer: {
-        marginTop: 20,
+        marginVertical: 20,
         alignItems: 'center',
     },
     weatherData: {

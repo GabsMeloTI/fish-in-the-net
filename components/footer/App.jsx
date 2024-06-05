@@ -29,15 +29,15 @@ export default function Footer() {
               </View>
               <View>
                 <View style={styles.imageRedes}>
-                  <Image source={linha} style={styles.imgRodape} /> 
+                  <Image source={facebook} style={styles.imgRodape} /> 
                   <Text style={styles.textRedes}>Solutech Investments</Text>
                 </View>
                 <View style={styles.imageRedes}>
-                  <Image source={linha} style={styles.imgRodape} />
+                  <Image source={twitter} style={styles.imgRodape} />
                   <Text style={styles.textRedes}>Solutech</Text>
                 </View>
                 <View style={styles.imageRedes}>
-                  <Image source={linha} style={styles.imgRodape} />
+                  <Image source={instagram} style={styles.imgRodape} />
                   <Text style={styles.textRedes}>solutech_investments</Text>
                 </View>
               </View>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   linhaRodape: {
     height: 2,
-    marginTop: '10%',
+    marginTop: '5%',
     width: '100%',
     marginBottom: '5%',
   },

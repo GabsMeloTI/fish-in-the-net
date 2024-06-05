@@ -36,7 +36,7 @@ export default function Home({ navigation }) {
                 <Text style={styles.blocoDescricao}>Encontre os locais com maior abundância de peixes e as melhores condições climáticas para sua pescaria.</Text>
             </View>
           </TouchableOpacity>
-          <View style={styles.blocoOpcoes}>
+          <TouchableOpacity onPress={() => navigation.navigate('AdicionarRegistros')} style={styles.blocoOpcoes} >
             <View style={styles.blocoImg}>
               <Image source={anotacao} style={styles.img} />
             </View>
@@ -44,7 +44,7 @@ export default function Home({ navigation }) {
               <Text style={styles.blocoTitulo}>Registro de Pesca</Text>
               <Text style={styles.blocoDescricao}>Mantenha um registro detalhado de suas capturas, contribuindo para a gestão sustentável da pesca.</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <View style={styles.blocoOpcoes}>
             <View style={styles.blocoImg}>
               <Image source={localizacao} style={styles.img} />
@@ -144,6 +144,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: '-3%',
     fontSize: 12,
-
   }
 });

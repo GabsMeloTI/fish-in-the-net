@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { StatusBar, Image, StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
 import Footer from '../../components/footer/App';
-import DropDownPicker from 'react-native-dropdown-picker';
 
 const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
@@ -18,13 +17,6 @@ export default function SingUp({ navigation }) {
   });
   const [confirmacao, setConfirmacao] = useState("");
 
-  const [open, setOpen] = useState(false);
-  const [items, setItems] = useState([
-    { label: 'Pescador', value: 'pescador' },
-    { label: 'Comprador', value: 'comprador' },
-    { label: 'Vendedor', value: 'vendedor' },
-  ]);
-
   function cadastrar(usuario) {
     api.post('/usuarios.json', usuario)
       .then(() => {
@@ -39,7 +31,6 @@ export default function SingUp({ navigation }) {
 
   const handleChange = (name, value) => {
     if (name === 'cpf') {
-      // Remove caracteres não numéricos
       value = value.replace(/[^0-9]/g, '');
     }
     setUsuario({
@@ -53,20 +44,33 @@ export default function SingUp({ navigation }) {
   };
 
   const handleSignUp = () => {
+    if (!usuario.nome || !usuario.cpf || !usuario.tipo || !usuario.email || !usuario.senha) {
+      alert("Todos os campos são obrigatórios");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(usuario.email)) {
+      alert("Por favor, insira um email válido");
+      return;
+    }
+
     if (usuario.cpf.length !== 11) {
       alert("CPF deve ter 11 números");
       return;
     }
+
     if (usuario.senha !== confirmacao) {
       alert("As senhas não conferem! Tente novamente");
       return;
     }
+
     cadastrar(usuario);
   };
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.conteudoTitle}>
+      <View style={styles.menu}>
         <Text style={styles.titulo}>CADASTRAR</Text>
       </View>
       <View style={styles.conteudo}>
@@ -80,7 +84,7 @@ export default function SingUp({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Digite seu nome"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 value={usuario.nome}
                 onChangeText={(text) => handleChange('nome', text)}
               />
@@ -90,7 +94,7 @@ export default function SingUp({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Digite seu CPF"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 value={usuario.cpf}
                 onChangeText={(text) => handleChange('cpf', text)}
                 keyboardType="numeric"
@@ -98,19 +102,14 @@ export default function SingUp({ navigation }) {
               />
             </View>
             <View style={styles.dropdownWrapper}>
-              <Text style={styles.desInput}>Função:</Text>
-              <DropDownPicker
-                open={open}
-                items={items}
-                setOpen={setOpen}
-                setItems={setItems}
-                style={styles.dropdown}
-                textStyle={styles.dropdownText}
-                dropDownContainerStyle={styles.dropdownContainer}
-                placeholder="Select an option"
-                placeholderStyle={styles.placeholder}
-                defaultValue={usuario.tipo} // Define o valor padrão como o tipo do usuário
-                onChangeItem={(item) => handleChange('tipo', item.value)} // Atualiza o tipo no estado do usuário
+              <Text style={styles.desInput}>Função(Comprador, Vendedor, Pescador):</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Digite sua função principal no app"
+                placeholderTextColor="#3b3b3b"
+                value={usuario.tipo}
+                onChangeText={(text) => handleChange('tipo', text)}
+                maxLength={10}
               />
             </View>
             <View>
@@ -118,7 +117,7 @@ export default function SingUp({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Digite seu email"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 value={usuario.email}
                 onChangeText={(text) => handleChange('email', text)}
               />
@@ -127,8 +126,8 @@ export default function SingUp({ navigation }) {
               <Text style={styles.desInput}>Senha:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Digite seu senha"
-                placeholderTextColor="#fff"
+                placeholder="Digite sua senha"
+                placeholderTextColor="#3b3b3b"
                 secureTextEntry={true}
                 value={usuario.senha}
                 onChangeText={(text) => handleChange('senha', text)}
@@ -139,7 +138,7 @@ export default function SingUp({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Confirme sua senha"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 secureTextEntry={true}
                 value={confirmacao}
                 onChangeText={(text) => handleConfirmacao(text)}
@@ -168,14 +167,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff', 
-
+  },
+  menu: {
+    alignItems: 'center',
+    padding: '5%',
   },
   conteudo: {
     alignItems: 'center',
     backgroundColor: '#000',
+    color: '#fff',
+    borderTopLeftRadius: 100,
+    paddingBottom:'10%',
   },
   conteudoTitle: {
     alignItems: 'center',
+    marginBottom: '6%',
   },
   titulo: {
     fontSize: 26,
@@ -263,4 +269,3 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-

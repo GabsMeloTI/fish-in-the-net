@@ -57,7 +57,7 @@ export default function SingIn({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Digite seu email"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 value={email}
                 onChangeText={setEmail}
               />
@@ -67,7 +67,7 @@ export default function SingIn({ navigation }) {
               <TextInput
                 style={styles.input}
                 placeholder="Digite sua senha"
-                placeholderTextColor="#fff"
+                placeholderTextColor="#3b3b3b"
                 secureTextEntry={true}
                 value={senha}
                 onChangeText={setSenha}

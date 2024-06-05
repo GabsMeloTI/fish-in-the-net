@@ -29,11 +29,15 @@ export default function Menu({ navigation }) {
                         <Image source={localizacao} style={styles.imgMenu} />
                     </TouchableOpacity>
                 </Tooltip>
-                <Tooltip popover={<Text>Agenda</Text>}>
-                    <Image source={agenda} style={styles.imgMenu} />
+                <Tooltip popover={<Text>Planejamento</Text>}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                        <Image source={agenda} style={styles.imgMenu} />
+                    </TouchableOpacity>
                 </Tooltip>
-                <Tooltip popover={<Text>Anotação</Text>}>
-                    <Image source={anotacao} style={styles.imgMenu} />
+                <Tooltip popover={<Text>Registros</Text>}>
+                    <TouchableOpacity onPress={() => navigation.navigate('AdicionarRegistros')}>
+                        <Image source={anotacao} style={styles.imgMenu} />
+                    </TouchableOpacity>
                 </Tooltip>
                 <Tooltip popover={<Text>Oferta</Text>}>
                     <Image source={oferta} style={styles.imgMenu} />
