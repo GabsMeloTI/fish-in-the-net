@@ -55,7 +55,6 @@ export default function MapScreen({ navigation }) {
             }
     
             let location = await Location.getCurrentPositionAsync({});
-            console.log('Localização obtida:', location);
             setLocalizacao(location);
         })();
     }, []);
@@ -69,11 +68,10 @@ export default function MapScreen({ navigation }) {
     }, [localizacao]);
     
     useEffect(() => {
-        console.log('WeatherData:', weatherData);
+        
     }, [weatherData]);
 
     useEffect(() => {
-        console.log('Weather Forecast:', weatherForecast);
     }, [weatherForecast]);
 
 

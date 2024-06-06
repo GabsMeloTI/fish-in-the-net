@@ -45,7 +45,7 @@ export default function Home({ navigation }) {
               <Text style={styles.blocoDescricao}>Mantenha um registro detalhado de suas capturas, contribuindo para a gestão sustentável da pesca.</Text>
             </View>
           </TouchableOpacity>
-          <View style={styles.blocoOpcoes}>
+          <TouchableOpacity onPress={() => navigation.navigate('EncontrosEVendas')} style={styles.blocoOpcoes}>
             <View style={styles.blocoImg}>
               <Image source={localizacao} style={styles.img} />
             </View>
@@ -53,8 +53,8 @@ export default function Home({ navigation }) {
               <Text style={styles.blocoTitulo}>Encontros e Vendas</Text>
               <Text style={styles.blocoDescricao}>Organize e participe de encontros para vender ou comprar peixes diretamente de outros pescadores.</Text>
             </View>
-          </View>
-          <View style={styles.blocoOpcoes}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Ofertas')} style={styles.blocoOpcoes}>
             <View style={styles.blocoImg}>
               <Image source={oferta} style={styles.img} />
             </View>
@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
               <Text style={styles.blocoTitulo}>Ofertas de Peixe</Text>
               <Text style={styles.blocoDescricao}>Encontre os locais com maior abundância de peixes e as melhores condições climáticas para sua pescaria.</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <Text style={styles.maisOpcoes}>Essas são algumas sugestões, há mais opções no menu acima.</Text>
         </View>
         <Footer/>

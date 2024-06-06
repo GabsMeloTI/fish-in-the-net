@@ -10,53 +10,53 @@ const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function VisaoRegistros({ navigation }) {
-  const [registros, setRegistros] = useState([]);
+export default function Ofertas({ navigation }) {
+  const [ofertas, setOfertas] = useState([]);
 
   useEffect(() => {
-    const fetchRegistros = async () => {
+    const fetchOfertas = async () => {
       try {
-        const response = await api.get('/registros.json');
+        const response = await api.get('/ofertas.json');
         const data = response.data;
-        const registrosList = [];
+        const ofertasList = [];
+        
         for (const key in data) {
-          const registro = {
+          ofertasList.push({
             id: key,
             ...data[key]
-          };
-          registro.data = format(new Date(registro.data), 'dd/MM/yyyy');
-          registrosList.push(registro);
+          });
         }
-        setRegistros(registrosList);
+        
+        setOfertas(ofertasList);
       } catch (error) {
-        console.error("Erro ao buscar registros:", error);
+        console.error("Erro ao buscar ofertas:", error);
       }
     };
 
-    fetchRegistros();
+    fetchOfertas();
   }, []);
 
   const renderItem = ({ item }) => (
-    <View style={styles.registrosContainer}>
+    <View style={styles.ofertasContainer}>
       <View style={styles.linhaContainer}>
-        <View style={styles.registrosTextos}>
-          <Text style={styles.registrosTexto}>Data:</Text>
-          <Text style={styles.registrosValor}>{item.data}</Text>
+        <View style={styles.ofertasTextos}>
+          <Text style={styles.ofertasTexto}>Data:</Text>
+          <Text style={styles.ofertasValor}>{item.preco}</Text>
         </View>
-        <View style={styles.registrosTextos}>
-          <Text style={styles.registrosTexto}>Quantidade:</Text>
-          <Text style={styles.registrosValor}>{item.quantidade}</Text>
+        <View style={styles.ofertasTextos}>
+          <Text style={styles.ofertasTexto}>Quantidade:</Text>
+          <Text style={styles.ofertasValor}>{item.quantidade}</Text>
         </View>
       </View>
       <Image source={linha} style={styles.linhaRodape} />
       <View style={styles.linhaContainer}>
-        <View style={styles.registrosTextos}>
-          <Text style={styles.registrosTexto}>Espécie:</Text>
-          <Text style={styles.registrosValor}>{item.especie}</Text>
+        <View style={styles.ofertasTextos}>
+          <Text style={styles.ofertasTexto}>Espécie:</Text>
+          <Text style={styles.ofertasValor}>{item.especie}</Text>
         </View>
-        <View style={styles.registrosTextos}>
-          <Text style={styles.registrosTexto}>Peso(KG):</Text>
-          <Text style={styles.registrosValor}>{item.peso}</Text>
+        <View style={styles.ofertasTextos}>
+          <Text style={styles.ofertasTexto}>Preço(Unidade):</Text>
+          <Text style={styles.ofertasValor}>{item.preco}</Text>
         </View>
       </View>
     </View>
@@ -71,22 +71,22 @@ export default function VisaoRegistros({ navigation }) {
         </View>
 
         <View style={styles.opcoes}>
-          <TouchableOpacity onPress={() => navigation.navigate('AdicionarRegistros')}>
-            <Text style={styles.opcoesTexto}>Adicionar</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('AddOferta')}>
+            <Text style={styles.opcoesTexto}>Criar Nova Oferta</Text>
           </TouchableOpacity>
           <Text style={styles.opcoesTexto}>|</Text>
           <TouchableOpacity>
-            <Text style={styles.opcoesTextoP}>Ver Registros</Text>
+            <Text style={styles.opcoesTextoP}>Visualizar Ofertas</Text>
           </TouchableOpacity>
         </View>
 
-        {registros.length === 0 ? (
-          <View style={styles.semRegistrosHeader}>
-            <Text style={styles.semRegistrosTexto}>Sem registro até o momento, você pode adicionar um registro na página "Adicionar".</Text>
+        {ofertas.length === 0 ? (
+          <View style={styles.semOfertasHeader}>
+            <Text style={styles.semOfertasTexto}>Sem registro até o momento, você pode adicionar um registro na página "Adicionar".</Text>
           </View>
         ) : (
           <FlatList
-            data={registros}
+            data={ofertas}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             numColumns={2}
@@ -110,8 +110,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     borderTopLeftRadius: 100,
+    paddingVertical: '10%',
     width: '100%',
-    minHeight: '100%',
+    minHeight: '80%',
   },
   header: {
     padding: 20,
@@ -143,8 +144,9 @@ const styles = StyleSheet.create({
   flatListContainer: {
     alignItems: 'center',
     marginHorizontal: '15%',
+    
   },
-  registrosContainer: {
+  ofertasContainer: {
     color: '#fff',
     borderColor: '#fff',
     borderWidth: 1,
@@ -153,6 +155,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: '100%',
     marginBottom: 10,
+    
   },
   linhaContainer: {
     flexDirection: 'row',
@@ -161,11 +164,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginVertical: 5,
   },
-  registrosTexto: {
+  ofertasTexto: {
     color: '#fff',
     textAlign: 'center',
   },
-  registrosValor: {
+  ofertasValor: {
     color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -176,11 +179,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: '5%',
   },
-  registrosTextos: {
+  ofertasTextos: {
     flex: 1,
     alignItems: 'center',
   },
-  semRegistrosTexto: {
+  semOfertasTexto: {
     color: "#3b3b3b",
     textAlign: 'center',
     fontSize: 16,
@@ -191,7 +194,7 @@ const styles = StyleSheet.create({
     padding: '5%',
     borderRadius: 10,
   },
-  semRegistrosHeader: {
+  semOfertasHeader: {
     minHeight: '38%',
     width: '60%',
     justifyContent: 'center',

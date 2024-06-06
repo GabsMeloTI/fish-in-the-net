@@ -24,8 +24,8 @@ export default function Menu({ navigation }) {
                         <Image source={home} style={styles.imgMenu} />
                     </TouchableOpacity>
                 </Tooltip>
-                <Tooltip popover={<Text>Planejamento</Text>} >
-                    <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+                <Tooltip popover={<Text>Oferta</Text>} >
+                    <TouchableOpacity onPress={() => navigation.navigate('EncontrosEVendas')}>
                         <Image source={localizacao} style={styles.imgMenu} />
                     </TouchableOpacity>
                 </Tooltip>
@@ -40,7 +40,9 @@ export default function Menu({ navigation }) {
                     </TouchableOpacity>
                 </Tooltip>
                 <Tooltip popover={<Text>Oferta</Text>}>
-                    <Image source={oferta} style={styles.imgMenu} />
+                    <TouchableOpacity onPress={() => navigation.navigate('Ofertas')}>
+                        <Image source={oferta} style={styles.imgMenu} />
+                    </TouchableOpacity>   
                 </Tooltip>
                 <Tooltip popover={<Text>Painel</Text>}>
                     <Image source={dash} style={styles.imgMenu} />

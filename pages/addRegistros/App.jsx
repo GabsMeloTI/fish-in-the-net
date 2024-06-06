@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 
 import Menu from '../../components/menu/App';
 import Footer from '../../components/footer/App';
 import axios from 'axios';
-import DatePicker from '@react-native-community/datetimepicker'; // Importe o DatePicker do novo pacote
+import DatePicker from '@react-native-community/datetimepicker';
 
 const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
@@ -105,7 +105,7 @@ export default function AdicionarRegistros({ navigation }) {
           <View style={styles.datePickerContainer}>
             <Text style={styles.desInput}>Data da pesca:</Text>
             <DatePicker
-              style={styles.escolhaData} // Ajuste o estilo aqui
+              style={styles.escolhaData} 
               mode="date"
               value={registro.data}
               display="default"
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     padding: '1%',
     borderRadius: 10,
     marginBottom: 20,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
     color: '#fff',
   },
 });
