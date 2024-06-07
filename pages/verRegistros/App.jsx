@@ -10,7 +10,7 @@ const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function VisaoRegistros({ navigation }) {
+export default function VisaoRegistros({ navigation, route, usuario }) {
   const [registros, setRegistros] = useState([]);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function VisaoRegistros({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Menu navigation={navigation} />
+      <Menu navigation={navigation} route={route}/>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Registro de Pesca</Text>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Tooltip } from 'react-native-elements';
 
 const logo = require('../../assets/img/Logo.png');
 const home = require('../../assets/img/icon-home.png');
@@ -9,50 +8,42 @@ const agenda = require('../../assets/img/icon-calendar.png');
 const anotacao = require('../../assets/img/icon-observability.png');
 const oferta = require('../../assets/img/icon-cash.png');
 const dash = require('../../assets/img/icon-painel.png');
-const rede = require('../../assets/img/icon-network.png');
+const ajuda = require('../../assets/img/icon-ajuda.png');
 const user = require('../../assets/img/icon-user.png');
 
-export default function Menu({ navigation }) {
+export default function Menu({ navigation, route }) {
+    const usuario = route && route.params && route.params.usuario;
+    
     return(
         <View style={styles.menu}>
             <View>
                 <Image source={logo} style={styles.logo} />
             </View>
             <View style={styles.lista}>
-                <Tooltip popover={<Text>Home</Text>} >
-                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                        <Image source={home} style={styles.imgMenu} />
-                    </TouchableOpacity>
-                </Tooltip>
-                <Tooltip popover={<Text>Oferta</Text>} >
-                    <TouchableOpacity onPress={() => navigation.navigate('EncontrosEVendas')}>
-                        <Image source={localizacao} style={styles.imgMenu} />
-                    </TouchableOpacity>
-                </Tooltip>
-                <Tooltip popover={<Text>Planejamento</Text>}>
-                    <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
-                        <Image source={agenda} style={styles.imgMenu} />
-                    </TouchableOpacity>
-                </Tooltip>
-                <Tooltip popover={<Text>Registros</Text>}>
-                    <TouchableOpacity onPress={() => navigation.navigate('AdicionarRegistros')}>
-                        <Image source={anotacao} style={styles.imgMenu} />
-                    </TouchableOpacity>
-                </Tooltip>
-                <Tooltip popover={<Text>Oferta</Text>}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Ofertas')}>
-                        <Image source={oferta} style={styles.imgMenu} />
-                    </TouchableOpacity>   
-                </Tooltip>
-                <Tooltip popover={<Text>Painel</Text>}>
+                <TouchableOpacity onPress={() => navigation.navigate('Home', { usuario: usuario })}>
+                    <Image source={home} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('EncontrosEVendas', { usuario: usuario })}>
+                    <Image source={localizacao} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('MapScreen', { usuario: usuario })}>
+                    <Image source={agenda} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AdicionarRegistros', { usuario: usuario })}>
+                    <Image source={anotacao} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Ofertas', { usuario: usuario })}>
+                    <Image source={oferta} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Dashboards', { usuario: usuario })}>
                     <Image source={dash} style={styles.imgMenu} />
-                </Tooltip>
-                <Tooltip popover={<Text>Rede</Text>}>
-                    <Image source={rede} style={styles.imgMenu} />
-                </Tooltip>
-                <Tooltip popover={<Text>Usuário</Text>}>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Ajuda', { usuario: usuario })}>
+                    <Image source={ajuda} style={styles.imgMenu} />
+                </TouchableOpacity>
+                <TouchableOpacity  onPress={() => navigation.navigate('Perfil', { usuario: usuario })}>
                     <Image source={user} style={styles.imgMenu} />
-                </Tooltip>
+                </TouchableOpacity>
             </View>
         </View>
     );

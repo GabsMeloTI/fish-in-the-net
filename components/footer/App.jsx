@@ -30,15 +30,15 @@ export default function Footer() {
               <View>
                 <View style={styles.imageRedes}>
                   <Image source={facebook} style={styles.imgRodape} /> 
-                  <Text style={styles.textRedes}>Solutech Investments</Text>
+                  <Text style={styles.textRedes}>Peixe na Rede</Text>
                 </View>
                 <View style={styles.imageRedes}>
                   <Image source={twitter} style={styles.imgRodape} />
-                  <Text style={styles.textRedes}>Solutech</Text>
+                  <Text style={styles.textRedes}>Peixe na Rede</Text>
                 </View>
                 <View style={styles.imageRedes}>
                   <Image source={instagram} style={styles.imgRodape} />
-                  <Text style={styles.textRedes}>solutech_investments</Text>
+                  <Text style={styles.textRedes}>peixe_na_rede</Text>
                 </View>
               </View>
             </View>

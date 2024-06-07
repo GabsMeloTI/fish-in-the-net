@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar, StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions, Modal, FlatList, ScrollView, Image } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, TextInput, TouchableOpacity, Dimensions, Modal, FlatList, Image, SafeAreaView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'; 
 import axios from 'axios';
 import Menu from '../../components/menu/App';
@@ -11,7 +11,7 @@ const api = axios.create({
     baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function EncontrosEVendas({ navigation }) {
+export default function EncontrosEVendas({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [encontros, setEncontros] = useState({
@@ -120,8 +120,8 @@ export default function EncontrosEVendas({ navigation }) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Menu navigation={navigation} />
+    <SafeAreaView style={styles.container}>
+      <Menu navigation={navigation} route={route}/>
       <View style={styles.conteudo}>
         <View style={styles.conteudoTitle}>
           <Text style={styles.titulo}>Encontros e Vendas</Text>
@@ -145,6 +145,7 @@ export default function EncontrosEVendas({ navigation }) {
       <Modal
         animationType="slide"
         transparent={true}
+       
         visible={modalVisible}
         onRequestClose={() => {
             setModalVisible(false);
@@ -193,7 +194,7 @@ export default function EncontrosEVendas({ navigation }) {
         </View>
       </Modal>
 
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -213,7 +214,6 @@ const styles = StyleSheet.create({
     paddingBottom: '10%',
     paddingHorizontal: '5%',
     minWidth: '100%',
-    minHeight: '100%',
   },
   conteudoTitle: {
     alignItems: 'center',
@@ -343,3 +343,4 @@ textoBotao: {
   fontSize: 12,
 },
 });
+

@@ -8,7 +8,8 @@ const api = axios.create({
     baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function AddOferta({ navigation }) {
+export default function AddOferta({ navigation, route }) {
+  const usuario = route.params && route.params.usuario;
   const [ofertas, setOfertas] = useState({
     especie: "",
     quantidade: "",
@@ -42,7 +43,7 @@ export default function AddOferta({ navigation }) {
 
   return (
     <ScrollView style={styles.container}>
-      <Menu navigation={navigation} />
+      <Menu navigation={navigation} route={route} />
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Criar Nova Oferta</Text>

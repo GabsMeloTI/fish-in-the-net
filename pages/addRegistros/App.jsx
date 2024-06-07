@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function AdicionarRegistros({ navigation }) {
+export default function AdicionarRegistros({ navigation, route }) {
   const [registro, setRegistro] = useState({
     data: new Date(),
     especie: "",
@@ -51,7 +51,7 @@ export default function AdicionarRegistros({ navigation }) {
 
   return (
     <ScrollView>
-      <Menu navigation={navigation} />
+      <Menu navigation={navigation} route={route}/>
       <View style={styles.conteudo}>
         <View style={styles.header}>
           <Text style={styles.title}>Registro de Pesca</Text>

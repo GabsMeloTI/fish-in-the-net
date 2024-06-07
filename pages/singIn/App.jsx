@@ -1,3 +1,4 @@
+// SignIn.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { StatusBar, Image, StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
@@ -8,7 +9,7 @@ const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function SingIn({ navigation }) {
+export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -23,20 +24,22 @@ export default function SingIn({ navigation }) {
         if (data[key].email === email && data[key].senha === senha) {
           userFound = true;
           alert("Login bem-sucedido!", `Bem-vindo, ${data[key].nome}!`);
-          navigation.navigate('Home');
-          break;
-        } else if (data[key].email != email && data[key].senha === senha) {
-          alert("Erro de login, o email está incorreto. Tente novamente.");
-        } else if (data[key].email === email && data[key].senha != senha) {
+          navigation.navigate('Home', { usuario: data[key] });
+          return; // Retorna após encontrar o usuário
+        } else if (data[key].email === email) {
           alert("Erro de login, a senha está incorreta. Tente novamente.");
+          return; // Retorna se o email estiver correto, mas a senha não
         }
       }
 
-
+      if (!userFound) {
+        alert("Erro de login, o email está incorreto. Tente novamente.");
+      }
     } catch (error) {
       alert("Erro", `Erro ao fazer login: ${error.message}`);
     }
   };
+
 
   return (
     <ScrollView style={styles.container}>
@@ -77,7 +80,7 @@ export default function SingIn({ navigation }) {
             <TouchableOpacity style={styles.botaoOne} onPress={login}>
               <Text style={styles.textoBotao}>Entrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.botao} onPress={() => { navigation.navigate('SingUp'); }}>
+            <TouchableOpacity style={styles.botao} onPress={() => { navigation.navigate('SignUp'); }}>
                 <Text style={styles.textoBotao}>Cadastre-se</Text>
               </TouchableOpacity>
             <View style={styles.botaoetexto}> 

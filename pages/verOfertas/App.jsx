@@ -10,7 +10,7 @@ const api = axios.create({
   baseURL: "https://solutech-fiap-default-rtdb.firebaseio.com/"
 });
 
-export default function Ofertas({ navigation }) {
+export default function Ofertas({ navigation, route }) {
   const [ofertas, setOfertas] = useState([]);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export default function Ofertas({ navigation }) {
     <View style={styles.ofertasContainer}>
       <View style={styles.linhaContainer}>
         <View style={styles.ofertasTextos}>
-          <Text style={styles.ofertasTexto}>Data:</Text>
-          <Text style={styles.ofertasValor}>{item.preco}</Text>
+          <Text style={styles.ofertasTexto}>Status:</Text>
+          <Text style={styles.ofertasValor}>{item.status}</Text>
         </View>
         <View style={styles.ofertasTextos}>
           <Text style={styles.ofertasTexto}>Quantidade:</Text>
@@ -64,10 +64,10 @@ export default function Ofertas({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Menu navigation={navigation} />
+      <Menu navigation={navigation} route={route}/>
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.title}>Registro de Pesca</Text>
+          <Text style={styles.title}>Ofertas</Text>
         </View>
 
         <View style={styles.opcoes}>

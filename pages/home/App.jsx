@@ -9,11 +9,13 @@ const agenda = require('../../assets/img/agender.png');
 const anotacao = require('../../assets/img/observar.png');
 const oferta = require('../../assets/img/oferta.png');
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+  const { usuario } = route.params;
+
 
   return (
     <ScrollView style={styles.container}>
-      <Menu navigation={navigation} />
+      <Menu navigation={navigation} route={route} />
 
       <View style={styles.conteudo}>
         <View style={styles.conteudoTitle}>
@@ -21,7 +23,7 @@ export default function Home({ navigation }) {
         </View>
 
         <View style={styles.conteudoBoasVindas}>
-          <Text style={styles.subtitulo}>Bem-vindo ao Peixe na Rede!</Text>
+          <Text style={styles.subtitulo}>Bem-vindo {usuario.nome} ao Peixe na Rede!</Text>
           <Text style={styles.descricao}>Descubra as melhores áreas para pesca, registre suas capturas, e conecte-se diretamente com compradores interessados em produtos pesqueiros frescos e sustentáveis. Nossa plataforma utiliza inteligência artificial para oferecer as melhores sugestões e condições climáticas, garantindo uma pesca mais produtiva e segura.</Text>
         </View>
 
@@ -143,6 +145,7 @@ const styles = StyleSheet.create({
   maisOpcoes: {
     color: '#fff',
     marginTop: '-3%',
+    marginBottom: '5%',
     fontSize: 12,
   }
 });

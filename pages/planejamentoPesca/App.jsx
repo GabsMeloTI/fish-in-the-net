@@ -7,7 +7,7 @@ import axios from 'axios';
 import * as Location from 'expo-location';
 import { REACT_APP_OPEN_WEATHER_KEY } from '@env'; 
 
-export default function MapScreen({ navigation }) {
+export default function MapScreen({ navigation, route }) {
     const [localizacao, setLocalizacao] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
     const [weatherForecast, setWeatherForecast] = useState(null);
@@ -77,7 +77,7 @@ export default function MapScreen({ navigation }) {
 
     return (
         <ScrollView>
-            <Menu navigation={navigation} />
+            <Menu navigation={navigation} route={route} />
             <View style={styles.conteudo}>
                 <View style={styles.header}>
                     <Text style={styles.title}>Planejamento de Pesca</Text>
