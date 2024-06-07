@@ -12,7 +12,6 @@ const oferta = require('../../assets/img/oferta.png');
 export default function Home({ navigation, route }) {
   const { usuario } = route.params;
 
-
   return (
     <ScrollView style={styles.container}>
       <Menu navigation={navigation} route={route} />

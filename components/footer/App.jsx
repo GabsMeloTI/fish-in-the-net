@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, Image, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, Image, StyleSheet, Text, View, TouchableOpacity , Linking } from 'react-native';
 
 const linha = require('../../assets/img/linha.png');
 const instagram = require('../../assets/img/Instagram.png');
@@ -7,6 +7,15 @@ const facebook = require('../../assets/img/Facebook.png');
 const twitter = require('../../assets/img/TwitterX.png');
 
 export default function Footer() {
+    const handleInstagramPress = () => {
+      Linking.openURL('https://www.instagram.com/gb__melo/');
+    };
+    const handleFacebookPress = () => {
+      Linking.openURL('https://www.facebook.com/gabrielmeloccri/?locale=pt_BR');
+    };
+    const handleTwiterPress = () => {
+      Linking.openURL('https://x.com/gb___melo');
+    };
     return(
         <View style={styles.rodape}>
           <View>
@@ -28,18 +37,18 @@ export default function Footer() {
                 <Text style={styles.textRedes}>Nossas Redes Sociais:</Text>
               </View>
               <View>
-                <View style={styles.imageRedes}>
+                <TouchableOpacity  style={styles.imageRedes} onPress={handleFacebookPress}>
                   <Image source={facebook} style={styles.imgRodape} /> 
                   <Text style={styles.textRedes}>Peixe na Rede</Text>
-                </View>
-                <View style={styles.imageRedes}>
+                </TouchableOpacity >
+                <TouchableOpacity  style={styles.imageRedes} onPress={handleTwiterPress}>
                   <Image source={twitter} style={styles.imgRodape} />
                   <Text style={styles.textRedes}>Peixe na Rede</Text>
-                </View>
-                <View style={styles.imageRedes}>
+                </TouchableOpacity >
+                <TouchableOpacity  style={styles.imageRedes} onPress={handleInstagramPress}>
                   <Image source={instagram} style={styles.imgRodape} />
                   <Text style={styles.textRedes}>peixe_na_rede</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

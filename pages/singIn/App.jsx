@@ -25,10 +25,10 @@ export default function SignIn({ navigation }) {
           userFound = true;
           alert("Login bem-sucedido!", `Bem-vindo, ${data[key].nome}!`);
           navigation.navigate('Home', { usuario: data[key] });
-          return; // Retorna após encontrar o usuário
+          return; 
         } else if (data[key].email === email) {
           alert("Erro de login, a senha está incorreta. Tente novamente.");
-          return; // Retorna se o email estiver correto, mas a senha não
+          return; 
         }
       }
 

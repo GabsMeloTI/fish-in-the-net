@@ -75,7 +75,7 @@ export default function Perfil({ navigation, route }) {
               placeholder="Digite seu nome"
               placeholderTextColor="#3b3b3b"
               value={usuarioAtualizado?.nome || ''}
-              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, nome: text })} // Atualizando o estado do usuário atualizado
+              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, nome: text })} 
               editable={editing}
             />
           </View>
@@ -86,7 +86,7 @@ export default function Perfil({ navigation, route }) {
               placeholder="Digite seu email"
               placeholderTextColor="#3b3b3b"
               value={usuarioAtualizado?.email || ''}
-              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, email: text })} // Atualizando o estado do usuário atualizado
+              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, email: text })} 
               editable={editing}
             />
           </View>
@@ -107,7 +107,7 @@ export default function Perfil({ navigation, route }) {
               placeholder="Digite sua função"
               placeholderTextColor="#3b3b3b"
               value={usuarioAtualizado?.tipo || ''}
-              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, tipo: text })} // Atualizando o estado do usuário atualizado
+              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, tipo: text })} 
               editable={editing}
             />
           </View>
@@ -119,7 +119,7 @@ export default function Perfil({ navigation, route }) {
               placeholderTextColor="#3b3b3b"
               secureTextEntry={true}
               value={usuarioAtualizado?.senha || ''}
-              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, senha: text })} // Atualizando o estado do usuário atualizado
+              onChangeText={(text) => setUsuarioAtualizado({ ...usuarioAtualizado, senha: text })} 
               editable={editing}
             />
           </View>
